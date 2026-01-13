@@ -1,5 +1,5 @@
 [tools]
-claude-code = "latest"
+claude-code = "2.1.6"
 pre-commit = "4.5.1"
 
 [settings]
