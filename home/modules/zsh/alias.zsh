@@ -24,6 +24,8 @@ alias asl='aws sso login --profile'
 
 # kubernetes
 alias k='kubectl'
+alias kg='k get'
+alias kgp='kg pod'
 alias ks='kustomize'
 
 # krew plugins
