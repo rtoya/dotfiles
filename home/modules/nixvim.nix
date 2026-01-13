@@ -7,13 +7,14 @@
     # 基本設定
     opts = {
       number = true;
-      relativenumber = true;
+      relativenumber = false;
       clipboard = "unnamedplus";
       expandtab = true;
       shiftwidth = 2;
       tabstop = 2;
       termguicolors = true;
       signcolumn = "yes";  # サイン列を常に表示してずれを防ぐ
+      numberwidth = 4;     # 行番号の幅を固定
     };
 
     # 背景透過（Weztermの透過設定を引き継ぐ）
