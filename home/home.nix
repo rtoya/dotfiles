@@ -16,11 +16,13 @@ in
   home.packages = with pkgs; [
     awscli2
     eza
+    gat
     git
     kubectl
     kustomize
     mise
     tree
+    xh
   ];
 
   # fonts (macOS)
