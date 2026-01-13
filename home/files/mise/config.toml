@@ -1,5 +1,6 @@
 [tools]
 claude-code = "latest"
+pre-commit = "4.5.1"
 
 [settings]
 experimental = true
