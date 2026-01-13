@@ -12,7 +12,19 @@
       expandtab = true;
       shiftwidth = 2;
       tabstop = 2;
+      termguicolors = true;
+      signcolumn = "yes";  # サイン列を常に表示してずれを防ぐ
     };
+
+    # 背景透過（Weztermの透過設定を引き継ぐ）
+    extraConfigLua = ''
+      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+      vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+      vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
+      vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+    '';
 
     # treesitter
     plugins.treesitter = {
