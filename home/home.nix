@@ -11,6 +11,7 @@
     gh
     git
     mise
+    tree
   ];
 
   # zsh
