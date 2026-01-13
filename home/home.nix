@@ -1,15 +1,15 @@
-{ config, pkgs, username, homeDirectory, ... }:
+{ lib, config, pkgs, username, homeDirectory, ... }:
 
 {
   home.username = username;
   home.homeDirectory = homeDirectory;
 
   home.stateVersion = "24.05";
-
+  
   home.packages = with pkgs; [
-    git
-    gh
     eza
+    gh
+    git
   ];
 
   # zsh
