@@ -3,12 +3,12 @@
 ## Setup
 
 ```sh
-curl -L https://nixos.org/nix/install | sh
-
-mkdir -p ~/.config/nix
-cat <<EOF > ~/.config/nix/nix.conf
-experimental-features = nix-command flakes
-EOF
-
-nix run github:nix-community/home-manager -- switch --flake .#mbp
+make setup
 ```
+
+## Commands
+
+| コマンド | 説明 |
+|----------|------|
+| `make setup` | 初回セットアップ（Nix + Flakes + 設定適用） |
+| `make switch` | 設定を適用 |

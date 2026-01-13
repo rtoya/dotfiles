@@ -2,5 +2,5 @@
 {
   xdg.configFile."wezterm/wezterm.lua".source =
     config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/dotfiles/home/files/wezterm/wezterm.lua";
+      "${config.home.homeDirectory}/dotfiles/home/modules/wezterm/wezterm.lua";
 }
