@@ -2,7 +2,7 @@
 
 let
   # ディレクトリ内のdefault.nixを自動インポート
-  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ];
+  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ];
 in
 
 {
@@ -54,5 +54,29 @@ in
 
   home.sessionVariables = {
     EDITOR = "vim";
+  };
+
+  # krew
+  programs.krew = {
+    enable = true;
+    plugins = [
+      "ctx"
+      "datadog"
+      "get-all"
+      "iexec"
+      "neat"
+      "node-shell"
+      "ns"
+      "open-svc"
+      "resource-capacity"
+      "rolesum"
+      "score"
+      "sniff"
+      "status"
+      "stern"
+      "tail"
+      "tree"
+      "view-utilization"
+    ];
   };
 }
