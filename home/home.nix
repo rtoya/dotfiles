@@ -14,6 +14,7 @@ in
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
+    awscli2
     eza
     git
     kubectl
