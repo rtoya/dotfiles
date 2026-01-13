@@ -65,6 +65,12 @@ in
 
   programs.starship.enable = true;
 
+  # fzf
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home.sessionVariables = {
     EDITOR = "vim";
   };
