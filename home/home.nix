@@ -10,6 +10,7 @@
     eza
     gh
     git
+    mise
   ];
 
   # zsh
