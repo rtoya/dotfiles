@@ -22,5 +22,9 @@ alias gbd='git branch --merged | grep -Ev "main|master|develop" | xargs -I% git 
 # aws
 alias asl='aws sso login --profile'
 
+# kubernetes
+alias k='kubectl'
+alias ks='kustomize'
+
 # mise
 alias claude='mise exec -- claude'

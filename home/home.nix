@@ -16,6 +16,8 @@ in
   home.packages = with pkgs; [
     eza
     git
+    kubectl
+    kustomize
     mise
     tree
   ];
