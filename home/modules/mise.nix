@@ -1,5 +1,4 @@
 { config, ... }:
-
 {
   xdg.configFile."mise/config.toml".source =
     config.lib.file.mkOutOfStoreSymlink

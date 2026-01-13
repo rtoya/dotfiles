@@ -1,6 +1,16 @@
-{ config, pkgs, username, homeDirectory, ... }:
+{ config, pkgs, lib, username, homeDirectory, ... }:
+
+let
+  moduleDir = ./modules;
+  modules =
+    builtins.attrValues (lib.mapAttrs (name: _: moduleDir + "/${name}")
+      (lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name)
+        (builtins.readDir moduleDir)));
+in
 
 {
+  imports = modules;
+  
   home.username = username;
   home.homeDirectory = homeDirectory;
 

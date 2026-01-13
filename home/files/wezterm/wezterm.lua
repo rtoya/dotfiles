@@ -7,7 +7,7 @@ end
 
 -- colors
 config.color_scheme = "nord"
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.90
 
 -- font
 -- config.font = wezterm.font("Firge35Nerd Console")
