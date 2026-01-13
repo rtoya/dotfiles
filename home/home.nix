@@ -16,8 +16,11 @@
 
   programs.git = {
     enable = true;
-    userName = "rtoya";
-    userEmail = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+
+    settings = {
+      user.name = "rtoya";
+      user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+    };
   };
 
   programs.starship.enable = true;
