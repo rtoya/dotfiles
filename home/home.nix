@@ -10,12 +10,12 @@ in
 
 {
   imports = modules;
-  
+
   home.username = username;
   home.homeDirectory = homeDirectory;
 
   home.stateVersion = "24.05";
-  
+
   home.packages = with pkgs; [
     eza
     gh
@@ -64,4 +64,3 @@ in
     EDITOR = "vim";
   };
 }
-
