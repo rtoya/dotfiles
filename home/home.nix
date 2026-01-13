@@ -30,7 +30,11 @@ in
   };
 
   # zsh
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    autosuggestion.enable = true;  # コマンド予測変換
+    syntaxHighlighting.enable = true;  # シンタックスハイライト
+  };
 
   home.file.".zshrc.d".source = ./zshrc.d;
   home.file.".zshrc.d".recursive = true;
