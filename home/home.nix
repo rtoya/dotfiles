@@ -49,6 +49,9 @@ in
     };
   };
 
+  # mise
+  programs.mise.enable = true;
+
   programs.starship.enable = true;
 
   home.sessionVariables = {
