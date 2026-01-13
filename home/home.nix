@@ -15,6 +15,7 @@ in
 
   home.packages = with pkgs; [
     awscli2
+    chezmoi
     eza
     gat
     git
