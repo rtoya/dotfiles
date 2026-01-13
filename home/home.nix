@@ -12,8 +12,22 @@
     eza
   ];
 
+  # zsh
   programs.zsh.enable = true;
 
+  home.file.".zshrc.d".source = ./zshrc.d;
+  home.file.".zshrc.d".recursive = true;
+
+  programs.zsh.initExtra = ''
+    # Load split zsh configs
+    if [ -d "$HOME/.zshrc.d" ]; then
+      for f in "$HOME/.zshrc.d"/*.zsh; do
+        [ -r "$f" ] && source "$f"
+      done
+    fi
+  '';
+
+  # git
   programs.git = {
     enable = true;
 
