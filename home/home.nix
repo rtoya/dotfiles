@@ -24,6 +24,12 @@ in
     tree
   ];
 
+  # fonts (macOS)
+  home.file."Library/Fonts/moralerspace" = {
+    source = "${pkgs.moralerspace}/share/fonts/moralerspace";
+    recursive = true;
+  };
+
   # zsh
   programs.zsh.enable = true;
 
