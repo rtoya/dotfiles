@@ -40,6 +40,9 @@ in
   home.file.".zshrc.d".recursive = true;
 
   programs.zsh.initContent = ''
+    # シンプルなプロンプト
+    PROMPT='$ '
+
     # Load split zsh configs
     if [ -d "$HOME/.zshrc.d" ]; then
       for f in "$HOME/.zshrc.d"/*.zsh; do
@@ -67,7 +70,7 @@ in
   # mise
   programs.mise.enable = true;
 
-  programs.starship.enable = true;
+  programs.starship.enable = false;
 
   # fzf
   programs.fzf = {
