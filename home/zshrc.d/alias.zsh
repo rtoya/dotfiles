@@ -1,6 +1,10 @@
 alias e='exit'
 alias ll='ls -l'
 
+# vim
+alias vim='nvim'
+alias vi='nvim'
+
 # git
 alias g='git'
 alias gb='git branch'

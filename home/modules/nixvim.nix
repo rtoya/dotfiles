@@ -17,7 +17,10 @@
     # treesitter
     plugins.treesitter = {
       enable = true;
-      settings.highlight.enable = true;
+      settings = {
+        highlight.enable = true;
+        ensure_installed = [ "nix" "lua" "bash" "json" "yaml" "toml" "markdown" ];
+      };
     };
 
     # LSP
