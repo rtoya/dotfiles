@@ -1,0 +1,5 @@
+[tools]
+chezmoi = "latest"
+
+[settings]
+experimental = true
