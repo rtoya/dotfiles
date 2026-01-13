@@ -15,11 +15,11 @@ config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_rate = 500
 
 -- Font
--- config.font = wezterm.font_with_fallback({
---   { family = "Hack Nerd Font", weight = "Regular", stretch = "Normal", style = "Normal" },
---   { family = "Hiragino Sans", weight = "Regular" },
---   { family = "Hiragino Kaku Gothic ProN", weight = "Regular" },
--- })
+config.font = wezterm.font_with_fallback({
+  { family = "Hack Nerd Font", weight = "Regular", stretch = "Normal", style = "Normal" },
+  { family = "Hiragino Sans", weight = "Regular" },
+  { family = "Hiragino Kaku Gothic ProN", weight = "Regular" },
+})
 config.font_size = 12.0
 config.line_height = 1.3
 config.window_padding = {

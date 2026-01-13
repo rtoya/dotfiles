@@ -18,7 +18,6 @@ in
 
   home.packages = with pkgs; [
     eza
-    gh
     git
     mise
     tree
@@ -53,6 +52,12 @@ in
       user.name = "rtoya";
       user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
     };
+  };
+
+  # gh (GitHub CLI)
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
   };
 
   # mise
