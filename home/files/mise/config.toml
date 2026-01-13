@@ -1,5 +1,5 @@
 [tools]
-chezmoi = "latest"
+claude-code = "latest"
 
 [settings]
 experimental = true
