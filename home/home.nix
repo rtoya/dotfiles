@@ -19,6 +19,7 @@ in
     eza
     gat
     git
+    google-cloud-sdk
     kubectl
     kustomize
     mise
