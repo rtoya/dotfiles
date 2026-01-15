@@ -23,6 +23,10 @@ alias gbd='git branch --merged | grep -Ev "main|master|develop" | xargs -I% git 
 alias asl='aws sso login --profile'
 
 # Terraform / Terragrunt
+alias tf='terraform'
+alias tfi='terraform init -reconfigure -backend-config=local.tfbackend -upgrade'
+alias tfp='terraform plan'
+alias tfa='terraform apply'
 alias tg='terragrunt'
 alias tgp='terragrunt plan'
 alias tgpa='terragrunt plan -all'
