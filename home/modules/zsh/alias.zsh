@@ -1,7 +1,9 @@
 # [e] シェル終了 [shell]
 alias e='exit'
-# [ll] 詳細リスト表示 [shell]
-alias ll='ls -l'
+# [ls] ezaでリスト表示 [shell,eza]
+alias ls='eza'
+# [ll] 詳細リスト表示 [shell,eza]
+alias ll='eza -la'
 
 # vim
 # [vim] Neovimを起動 [nvim]

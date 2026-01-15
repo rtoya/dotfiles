@@ -26,7 +26,6 @@
         modules = [
           nixvim.homeModules.nixvim
           ./home/home.nix
-          ./home/hosts/mbp.nix
         ];
         extraSpecialArgs = {
           inherit username homeDirectory;
