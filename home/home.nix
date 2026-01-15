@@ -23,6 +23,7 @@ in
     kubectl
     kustomize
     mise
+    tig
     tree
     xh
   ];

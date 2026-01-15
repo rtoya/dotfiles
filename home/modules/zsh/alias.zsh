@@ -24,6 +24,10 @@ alias asl='aws sso login --profile'
 
 # Terraform / Terragrunt
 alias tg='terragrunt'
+alias tgp='terragrunt plan'
+alias tgpa='terragrunt plan -all'
+alias tga='terragrunt apply'
+alias tgaa='terragrunt apply -all'
 
 # kubernetes
 alias k='kubectl'
