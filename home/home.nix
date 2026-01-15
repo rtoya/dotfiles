@@ -18,11 +18,13 @@ in
     chezmoi
     eza
     gat
+    ghq
     git
     google-cloud-sdk
     kubectl
     kustomize
     mise
+    peco
     tig
     tree
     xh
@@ -57,6 +59,19 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  # zoxide (smarter cd)
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  # direnv (directory-specific env vars)
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   home.sessionVariables = {

@@ -4,6 +4,9 @@
   programs.nixvim = {
     enable = true;
 
+    # Leaderキーをスペースに設定
+    globals.mapleader = " ";
+
     # 基本設定
     opts = {
       number = true;
@@ -55,5 +58,60 @@
         { name = "buffer"; }
       ];
     };
+
+    # telescope（ファジーファインダー）
+    plugins.telescope = {
+      enable = true;
+      settings = {
+        defaults = {
+          layout_config = {
+            width = 0.75;
+          };
+          file_ignore_patterns = [ "^.git/" "vendor" ];
+          vimgrep_arguments = [
+            "${pkgs.ripgrep}/bin/rg"
+            "--color=never"
+            "--no-heading"
+            "--with-filename"
+            "--line-number"
+            "--column"
+            "--smart-case"
+            "--hidden"
+          ];
+        };
+        pickers = {
+          find_files = {
+            hidden = true;
+          };
+        };
+      };
+      keymaps = {
+        "<leader>ff" = {
+          action = "find_files";
+          options.desc = "Find files";
+        };
+        "<leader>fg" = {
+          action = "live_grep";
+          options.desc = "Live grep";
+        };
+        "<leader>fb" = {
+          action = "buffers";
+          options.desc = "Buffers";
+        };
+        "<leader>fh" = {
+          action = "help_tags";
+          options.desc = "Help tags";
+        };
+      };
+      extensions = {
+        fzf-native.enable = true;
+      };
+    };
+
+    # ripgrepとfdをtelescope用に追加
+    extraPackages = with pkgs; [
+      ripgrep
+      fd
+    ];
   };
 }
