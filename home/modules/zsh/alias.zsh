@@ -62,8 +62,14 @@ alias tga='terragrunt apply'
 alias tgaa='terragrunt apply -all'
 
 # kubernetes
+# [kubectl] kubecolorでカラー出力 [k8s,kubecolor]
+alias kubectl='kubecolor'
 # [k] kubectl [k8s]
 alias k='kubectl'
+# [kd] kubectl describe [k8s]
+alias kd='k describe'
+# [kd] kubectl describe pod [k8s]
+alias kdp='k describe pod'
 # [kg] kubectl get [k8s]
 alias kg='k get'
 # [kgp] Pod一覧 [k8s]

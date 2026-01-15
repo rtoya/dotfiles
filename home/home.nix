@@ -21,6 +21,7 @@ in
     ghq
     git
     google-cloud-sdk
+    kubecolor
     kubectl
     kustomize
     mise
