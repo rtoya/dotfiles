@@ -1,4 +1,4 @@
-# fzf + kubernetes
+# [ksl] Pod選択 → sternでログ表示
 function ksl() {
   local pod
   pod=$(kubectl get pods --no-headers | fzf --preview 'kubectl logs --tail=50 {1}' | awk '{print $1}')
@@ -7,7 +7,7 @@ function ksl() {
   fi
 }
 
-# git branch + fzf: ブランチを選択してチェックアウト
+# [gcof] ブランチ選択 → checkout
 function gcof() {
   local branch
   branch=$(git branch -a | fzf --preview 'git log --oneline --graph -20 {1}' | sed 's/^[* ]*//' | sed 's|remotes/origin/||')
@@ -16,7 +16,7 @@ function gcof() {
   fi
 }
 
-# kubectl + yq: リソースを取得してyqでフィルタリング
+# [kyq] kubectl get を yq でフィルタ (例: kyq pods '.items[].metadata.name')
 function kyq() {
   local resource="$1"
   local filter="${2:-.}"
@@ -28,7 +28,7 @@ function kyq() {
   kubectl get "$resource" -o yaml | yq "$filter"
 }
 
-# gh + fzf: PRを選択してブラウザで開く
+# [ghpr] PR選択 → ブラウザで開く
 function ghpr() {
   local pr
   pr=$(gh pr list | fzf --preview 'gh pr view {1}' | awk '{print $1}')
@@ -37,7 +37,7 @@ function ghpr() {
   fi
 }
 
-# gh + fzf: Issueを選択してブラウザで開く
+# [ghi] Issue選択 → ブラウザで開く
 function ghi() {
   local issue
   issue=$(gh issue list | fzf --preview 'gh issue view {1}' | awk '{print $1}')
@@ -46,7 +46,7 @@ function ghi() {
   fi
 }
 
-# history + peco: コマンド履歴を検索して実行
+# [h] 履歴検索 (peco)
 function h() {
   local cmd
   cmd=$(history -n 1 | tail -r | peco --query "$1")
@@ -55,7 +55,7 @@ function h() {
   fi
 }
 
-# Ctrl+R用のZLEウィジェット
+# Ctrl+R用のZLEウィジェット (内部関数)
 function _peco_history_widget() {
   local cmd
   cmd=$(history -n 1 | tail -r | peco --query "$LBUFFER")
@@ -67,3 +67,19 @@ function _peco_history_widget() {
 }
 zle -N _peco_history_widget
 bindkey '^r' _peco_history_widget
+
+# [af] alias/function 一覧表示 + fzf検索 → 選択でコマンドラインにセット
+function af() {
+  local zsh_dir="$HOME/.zshrc.d"
+  local selected
+  selected=$(
+    grep -E "^# \[.+\]" "$zsh_dir/alias.zsh" "$zsh_dir/function.zsh" 2>/dev/null \
+      | sed 's|.*:# \[\([^]]*\)\] \(.*\)|\1\t\2|' \
+      | column -t -s $'\t' \
+      | fzf --prompt="alias/function> " --height=100% --layout=reverse
+  )
+  if [ -n "$selected" ]; then
+    local cmd=$(echo "$selected" | awk '{print $1}')
+    print -z "$cmd"
+  fi
+}

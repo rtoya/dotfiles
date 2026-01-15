@@ -30,6 +30,9 @@
       vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
     '';
 
+    # web-devicons（アイコン表示）
+    plugins.web-devicons.enable = true;
+
     # treesitter
     plugins.treesitter = {
       enable = true;
