@@ -1,110 +1,110 @@
-# [e] シェル終了
+# [e] シェル終了 [shell]
 alias e='exit'
-# [ll] 詳細リスト表示
+# [ll] 詳細リスト表示 [shell]
 alias ll='ls -l'
 
 # vim
-# [vim] Neovimを起動
+# [vim] Neovimを起動 [nvim]
 alias vim='nvim'
-# [vi] Neovimを起動
+# [vi] Neovimを起動 [nvim]
 alias vi='nvim'
 
 # git
-# [g] git
+# [g] git [git]
 alias g='git'
-# [gb] ブランチ一覧
+# [gb] ブランチ一覧 [git]
 alias gb='git branch'
-# [gc] AIコミット
+# [gc] AIコミット [git,aicommits]
 alias gc='aicommits -a'
-# [gce] 空コミット作成
+# [gce] 空コミット作成 [git]
 alias gce='git commit --allow-empty -m "empty commit"'
-# [gco] ブランチ切替
+# [gco] ブランチ切替 [git]
 alias gco='git checkout'
-# [gf] フェッチ
+# [gf] フェッチ [git]
 alias gf='git fetch'
-# [gg] git grep
+# [gg] git grep [git]
 alias gg='git grep'
-# [gm] マージ
+# [gm] マージ [git]
 alias gm='git merge'
-# [gp] プッシュ
+# [gp] プッシュ [git]
 alias gp='git push'
-# [gpush] 現在ブランチをプッシュ
+# [gpush] 現在ブランチをプッシュ [git]
 alias gpush='gp origin $(gb --show-current)'
-# [gst] ステータス表示
+# [gst] ステータス表示 [git]
 alias gst='git status -s -b'
-# [gbd] マージ済みブランチ削除
+# [gbd] マージ済みブランチ削除 [git]
 alias gbd='git branch --merged | grep -Ev "main|master|develop" | xargs -I% git branch -D %'
 
 # aws
-# [asl] AWS SSOログイン
+# [asl] AWS SSOログイン [aws]
 alias asl='aws sso login --profile'
 
 # Terraform / Terragrunt
-# [tf] terraform
+# [tf] terraform [terraform]
 alias tf='terraform'
-# [tfi] terraform init (再設定)
+# [tfi] terraform init (再設定) [terraform]
 alias tfi='terraform init -reconfigure -backend-config=local.tfbackend -upgrade'
-# [tfp] terraform plan
+# [tfp] terraform plan [terraform]
 alias tfp='terraform plan'
-# [tfa] terraform apply
+# [tfa] terraform apply [terraform]
 alias tfa='terraform apply'
-# [tg] terragrunt
+# [tg] terragrunt [terragrunt]
 alias tg='terragrunt'
-# [tgp] terragrunt plan
+# [tgp] terragrunt plan [terragrunt]
 alias tgp='terragrunt plan'
-# [tgpa] terragrunt plan -all
+# [tgpa] terragrunt plan -all [terragrunt]
 alias tgpa='terragrunt plan -all'
-# [tga] terragrunt apply
+# [tga] terragrunt apply [terragrunt]
 alias tga='terragrunt apply'
-# [tgaa] terragrunt apply -all
+# [tgaa] terragrunt apply -all [terragrunt]
 alias tgaa='terragrunt apply -all'
 
 # kubernetes
-# [k] kubectl
+# [k] kubectl [k8s]
 alias k='kubectl'
-# [kg] kubectl get
+# [kg] kubectl get [k8s]
 alias kg='k get'
-# [kgp] Pod一覧
+# [kgp] Pod一覧 [k8s]
 alias kgp='kg pod'
-# [ks] kustomize
+# [ks] kustomize [k8s,kustomize]
 alias ks='kustomize'
 
 # krew plugins
-# [kx] コンテキスト切替
+# [kx] コンテキスト切替 [k8s,krew]
 alias kx='kubectl ctx'
-# [kn] namespace切替
+# [kn] namespace切替 [k8s,krew]
 alias kn='kubectl ns'
-# [st] ログストリーム (stern)
+# [st] ログストリーム [k8s,krew,stern]
 alias st='kubectl stern'
-# [neat] YAML整形出力
+# [neat] YAML整形出力 [k8s,krew]
 alias neat='kubectl neat'
-# [knode] ノードにシェル接続
+# [knode] ノードにシェル接続 [k8s,krew]
 alias knode='kubectl node-shell'
-# [ksniff] パケットキャプチャ
+# [ksniff] パケットキャプチャ [k8s,krew]
 alias ksniff='kubectl sniff'
-# [kall] 全リソース取得
+# [kall] 全リソース取得 [k8s,krew]
 alias kall='kubectl get-all'
-# [ktree] リソースツリー表示
+# [ktree] リソースツリー表示 [k8s,krew]
 alias ktree='kubectl tree'
-# [ktail] 複数Podログ
+# [ktail] 複数Podログ [k8s,krew]
 alias ktail='kubectl tail'
-# [kstatus] リソースステータス
+# [kstatus] リソースステータス [k8s,krew]
 alias kstatus='kubectl status'
-# [kscore] マニフェストスコア
+# [kscore] マニフェストスコア [k8s,krew]
 alias kscore='kubectl score'
-# [kex] インタラクティブexec
+# [kex] インタラクティブexec [k8s,krew]
 alias kex='kubectl iexec'
-# [kdd] Datadog連携
+# [kdd] Datadog連携 [k8s,krew,datadog]
 alias kdd='kubectl datadog'
-# [krc] リソースキャパシティ
+# [krc] リソースキャパシティ [k8s,krew]
 alias krc='kubectl resource-capacity'
-# [krolesum] RBAC要約
+# [krolesum] RBAC要約 [k8s,krew]
 alias krolesum='kubectl rolesum'
-# [kvu] リソース使用率
+# [kvu] リソース使用率 [k8s,krew]
 alias kvu='kubectl view-utilization'
-# [kosvc] サービスをブラウザで開く
+# [kosvc] サービスをブラウザで開く [k8s,krew]
 alias kosvc='kubectl open-svc'
 
 # Claude Code
-# [claude] Claude Code起動
+# [claude] Claude Code起動 [claude,mise]
 alias claude='mise exec -- claude'
