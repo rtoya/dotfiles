@@ -26,6 +26,7 @@ in
     tig
     tree
     xh
+    yq
   ];
 
   # fonts (macOS)
