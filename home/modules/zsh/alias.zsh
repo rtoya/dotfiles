@@ -22,6 +22,9 @@ alias gbd='git branch --merged | grep -Ev "main|master|develop" | xargs -I% git 
 # aws
 alias asl='aws sso login --profile'
 
+# Terraform / Terragrunt
+alias tg='terragrunt'
+
 # kubernetes
 alias k='kubectl'
 alias kg='k get'
@@ -47,5 +50,5 @@ alias krolesum='kubectl rolesum'
 alias kvu='kubectl view-utilization'
 alias kosvc='kubectl open-svc'
 
-# mise
+# Claude Code
 alias claude='mise exec -- claude'
