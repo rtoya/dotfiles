@@ -130,6 +130,9 @@ function M.apply_to_config(config)
     -- フルスクリーン
     { key = "Enter", mods = "CMD", action = act.ToggleFullScreen },
 
+    -- macOS IME対応: Alt+¥ でバックスラッシュを入力
+    { key = "¥", mods = "ALT", action = act.SendString("\\") },
+
     -- ============================================
     -- Leader キーバインド
     -- ============================================

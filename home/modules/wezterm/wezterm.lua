@@ -8,6 +8,12 @@ config.automatically_reload_config = true
 config.audible_bell = "Disabled"
 
 -- ============================================
+-- macOS IME対応
+-- ============================================
+-- macSKK: Control+Jで改行されないようにする
+config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
+
+-- ============================================
 -- モジュール読み込み
 -- ============================================
 local appearance = require 'appearance'

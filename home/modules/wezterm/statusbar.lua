@@ -48,14 +48,36 @@ function M.setup_events()
       end
     end
 
-    local left_status = wezterm.format({
+    -- モード名の表示テキスト
+    local mode_text = ""
+    if key_table then
+      local mode_labels = {
+        copy_mode = "COPY",
+        setting_mode = "SETTING",
+        search_mode = "SEARCH",
+      }
+      mode_text = mode_labels[key_table] or key_table:upper()
+    end
+
+    local left_status_elements = {
       { Foreground = { Color = "#268bd2" } },
       { Text = "  " .. workspace .. " " },
-      { Foreground = { Color = "#073642" } },
-      { Text = "| " },
-      { Foreground = { Color = "#b58900" } },
-      { Text = "󱃾 " .. k8s_context .. " " },
-    })
+    }
+
+    -- モードがアクティブな場合は表示
+    if mode_text ~= "" then
+      table.insert(left_status_elements, { Foreground = { Color = "#073642" } })
+      table.insert(left_status_elements, { Text = "| " })
+      table.insert(left_status_elements, { Foreground = { Color = cursor_color } })
+      table.insert(left_status_elements, { Text = " " .. mode_text .. " " })
+    end
+
+    table.insert(left_status_elements, { Foreground = { Color = "#073642" } })
+    table.insert(left_status_elements, { Text = "| " })
+    table.insert(left_status_elements, { Foreground = { Color = "#b58900" } })
+    table.insert(left_status_elements, { Text = "󱃾 " .. k8s_context .. " " })
+
+    local left_status = wezterm.format(left_status_elements)
     window:set_left_status(left_status)
 
     -- 右側: CWD + Gitブランチ + 時刻
