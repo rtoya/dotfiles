@@ -68,6 +68,57 @@ function _peco_history_widget() {
 zle -N _peco_history_widget
 bindkey '^r' _peco_history_widget
 
+# [aic] AIコミットメッセージ生成 (Claude) [git,claude]
+function aic() {
+  # ステージングされた変更があるか確認
+  local staged=$(git diff --cached --stat)
+  if [ -z "$staged" ]; then
+    echo "Error: No staged changes. Run 'git add' first."
+    return 1
+  fi
+
+  echo "Generating commit message..."
+  local diff=$(git diff --cached)
+  local prompt="Generate a concise git commit message for the following diff.
+Rules:
+- Use conventional commits format (feat:, fix:, docs:, refactor:, etc.)
+- Keep the first line under 50 characters
+- Be specific about what changed
+- Output ONLY the commit message, nothing else
+
+Diff:
+$diff"
+
+  local message=$(claude -p "$prompt" 2>/dev/null)
+  if [ -z "$message" ]; then
+    echo "Error: Failed to generate commit message."
+    return 1
+  fi
+
+  echo "\nGenerated message:"
+  echo "─────────────────"
+  echo "$message"
+  echo "─────────────────"
+  echo "\n[c]ommit / [e]dit / [r]egenerate / [q]uit?"
+  read -k 1 choice
+  echo ""
+
+  case "$choice" in
+    c)
+      git commit -m "$message"
+      ;;
+    e)
+      git commit -e -m "$message"
+      ;;
+    r)
+      aic
+      ;;
+    *)
+      echo "Aborted."
+      ;;
+  esac
+}
+
 # [af] alias/function 一覧表示 + fzf検索 [fzf,cheatsheet]
 function af() {
   local zsh_dir="$HOME/.zshrc.d"

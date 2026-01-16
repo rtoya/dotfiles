@@ -17,7 +17,7 @@ alias g='git'
 # [gb] ブランチ一覧 [git]
 alias gb='git branch'
 # [gc] AIコミット [git,aicommits]
-alias gc='aicommits -a'
+alias gc='aic'
 # [gce] 空コミット作成 [git]
 alias gce='git commit --allow-empty -m "empty commit"'
 # [gco] ブランチ切替 [git]
