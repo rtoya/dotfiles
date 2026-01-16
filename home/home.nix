@@ -37,6 +37,10 @@ in
     source = "${pkgs.moralerspace}/share/fonts/moralerspace";
     recursive = true;
   };
+  home.file."Library/Fonts/hackgen-nf" = {
+    source = "${pkgs.hackgen-nf-font}/share/fonts/hackgen-nf";
+    recursive = true;
+  };
 
   # git
   programs.git = {
