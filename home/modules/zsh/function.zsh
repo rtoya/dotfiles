@@ -119,6 +119,34 @@ $diff"
   esac
 }
 
+# [gi] gitignore生成 (gibo + fzf) [git,gibo,fzf]
+function create-gitignore() {
+  local output_file="${1:-.gitignore}"
+
+  # giboテンプレート一覧からfzfで選択（複数選択可）
+  local selected
+  selected=$(gibo list | fzf --multi --preview 'gibo dump {}' --preview-window=right:60% --prompt="gitignore template> ")
+
+  if [ -z "$selected" ]; then
+    echo "Cancelled."
+    return 0
+  fi
+
+  # 選択したテンプレートをファイルに追記
+  echo "$selected" | while read -r template; do
+    gibo dump "$template" >> "$output_file"
+  done
+
+  echo "Generated: $output_file"
+
+  # batがあればカラー表示、なければcat
+  if command -v bat &> /dev/null; then
+    bat "$output_file"
+  else
+    cat "$output_file"
+  fi
+}
+
 # [af] alias/function 一覧表示 + fzf検索 [fzf,cheatsheet]
 function af() {
   local zsh_dir="$HOME/.zshrc.d"

@@ -14,6 +14,8 @@ alias vi='nvim'
 # git
 # [g] git [git]
 alias g='git'
+# [gi] gitignore生成 (gibo + fzf) [git,gibo]
+alias gi='create-gitignore'
 # [gb] ブランチ一覧 [git]
 alias gb='git branch'
 # [gc] AIコミット [git,aicommits]

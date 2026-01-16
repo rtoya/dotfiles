@@ -15,10 +15,12 @@ in
 
   home.packages = with pkgs; [
     awscli2
+    bat
     chezmoi
     eza
     gat
     ghq
+    gibo
     git
     google-cloud-sdk
     kubecolor
