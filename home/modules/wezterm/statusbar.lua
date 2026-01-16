@@ -1,12 +1,33 @@
 local wezterm = require 'wezterm'
 local M = {}
 
+-- ============================================
+-- カーソル色定義（モード別）
+-- ============================================
+local CURSOR_COLORS = {
+  default = "#80EBDF",      -- シアン（通常時）
+  copy_mode = "#ffd700",    -- ゴールド（コピーモード）
+  setting_mode = "#39FF14", -- ネオングリーン（設定モード）
+}
+
+local last_cursor_color = nil
+
 function M.apply_to_config(config)
   config.status_update_interval = 1000
 end
 
 function M.setup_events()
   wezterm.on("update-status", function(window, pane)
+    -- ============================================
+    -- 動的カーソル色変更
+    -- ============================================
+    local key_table = window:active_key_table()
+    local cursor_color = CURSOR_COLORS[key_table] or CURSOR_COLORS.default
+    if last_cursor_color ~= cursor_color then
+      last_cursor_color = cursor_color
+      pane:inject_output("\x1b]12;" .. cursor_color .. "\x1b\\")
+    end
+
     -- 左側: ワークスペース名 + Kubernetesコンテキスト
     local workspace = window:active_workspace()
 
