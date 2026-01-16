@@ -72,6 +72,7 @@ in
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+    options = [ "--cmd" "cd" ];  # cdコマンドをzoxideに置き換え
   };
 
   # direnv (directory-specific env vars)

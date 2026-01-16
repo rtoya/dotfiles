@@ -62,6 +62,11 @@
       ];
     };
 
+    # octo（GitHub連携）
+    plugins.octo = {
+      enable = true;
+    };
+
     # telescope（ファジーファインダー）
     plugins.telescope = {
       enable = true;
