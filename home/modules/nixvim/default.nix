@@ -28,6 +28,27 @@
       vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
       vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
       vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+
+      -- URL または AWS ARN を開く関数
+      local function open_url_or_arn()
+        local cword = vim.fn.expand("<cWORD>")
+        local cfile = vim.fn.expand("<cfile>")
+        local arn = cword:match("[\"'\`]?(arn:aws[a-z%-]*:[^\"'\`%%s]+)[\"'\`]?")
+        if arn then
+          vim.ui.open("https://console.aws.amazon.com/go/view?arn=" .. arn)
+        else
+          vim.ui.open(cfile)
+        end
+      end
+
+      -- gx: URL または AWS ARN を開く
+      vim.keymap.set("n", "gx", open_url_or_arn, { desc = "Open URL or AWS ARN" })
+
+      -- Ctrl+クリック: URL または AWS ARN を開く
+      vim.keymap.set("n", "<C-LeftMouse>", function()
+        vim.cmd("normal! <LeftMouse>")  -- まずカーソルを移動
+        open_url_or_arn()
+      end, { desc = "Open URL or AWS ARN (click)" })
     '';
 
     # web-devicons（アイコン表示）

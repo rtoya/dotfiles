@@ -20,9 +20,22 @@ function M.apply_to_config(config)
   -- ============================================
   -- ハイパーリンク
   -- ============================================
-  config.hyperlink_rules = wezterm.default_hyperlink_rules()
+  -- 注意: ルールは先に定義されたものが優先される
+  config.hyperlink_rules = {
+    -- AWS ARN を最優先でマッチ（ファイルパスより先）
+    -- 例: arn:aws:iam::649093048886:role/wevox-eks-engagement-dev
+    {
+      regex = [[arn:aws[a-z0-9-]*:[a-z0-9-]*:[a-z0-9-]*:[0-9]*:[a-zA-Z0-9_./:@=-]+]],
+      format = "https://console.aws.amazon.com/go/view?arn=$0",
+    },
+  }
 
-  -- ファイルパスをクリック可能に
+  -- デフォルトルールを追加
+  for _, rule in ipairs(wezterm.default_hyperlink_rules()) do
+    table.insert(config.hyperlink_rules, rule)
+  end
+
+  -- ファイルパスをクリック可能に（ARNルールより後に追加）
   table.insert(config.hyperlink_rules, {
     regex = "\\b(/[\\w.-]+)+\\b",
     format = "file://$0",

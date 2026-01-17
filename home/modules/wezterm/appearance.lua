@@ -53,6 +53,10 @@ function M.apply_to_config(config)
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   }
+
+  -- ============================================
+  -- Hyperlink Rules は utils.lua で設定
+  -- ============================================
 end
 
 return M

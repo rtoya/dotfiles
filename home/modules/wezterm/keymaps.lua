@@ -182,6 +182,24 @@ function M.apply_to_config(config)
         window:perform_action(act.TogglePaneZoomState, window:active_pane())
       end),
     },
+
+    -- AWS ARN選択 → AWSコンソールを開く (Leader+a)
+    {
+      key = "a",
+      mods = "LEADER",
+      action = act.QuickSelectArgs {
+        label = "Open AWS Console",
+        patterns = {
+          "\\barn:[\\w\\-]+:[\\w\\-]+:[\\w\\-]*:[0-9]*:[\\w\\-/:=.]+",
+        },
+        action = wezterm.action_callback(function(window, pane)
+          local arn = window:get_selection_text_for_pane(pane)
+          if arn then
+            wezterm.open_with("https://console.aws.amazon.com/go/view?arn=" .. arn)
+          end
+        end),
+      },
+    },
   }
 
   -- ============================================
