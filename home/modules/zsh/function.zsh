@@ -147,6 +147,15 @@ function create-gitignore() {
   fi
 }
 
+# [octo] Octo.nvimを開く (例: octo pr list, octo issue 123) [nvim,octo,github]
+function octo() {
+  if [ $# -eq 0 ]; then
+    nvim +Octo
+  else
+    nvim "+Octo $*"
+  fi
+}
+
 # [af] alias/function 一覧表示 + fzf検索 [fzf,cheatsheet]
 function af() {
   local zsh_dir="$HOME/.zshrc.d"
