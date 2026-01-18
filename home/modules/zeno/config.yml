@@ -1,0 +1,144 @@
+$include:
+  - ./git.yml
+  - ./k8s.yml
+  - ./terraform.yml
+  - ./nix.yml
+
+snippets:
+  # shell basic
+  - name: ll
+    keyword: ll
+    snippet: eza -la
+
+  - name: la
+    keyword: la
+    snippet: eza -a
+
+  - name: lt
+    keyword: lt
+    snippet: eza --tree
+
+  - name: today
+    keyword: td
+    snippet: date +%Y-%m-%d
+
+  - name: reload shell
+    keyword: r
+    snippet: exec $SHELL -l
+
+  - name: my ip
+    keyword: myip
+    snippet: curl -s ifconfig.me
+
+  - name: open finder
+    keyword: f
+    snippet: open .
+
+  - name: lazydocker
+    keyword: ld
+    snippet: lazydocker
+
+  - name: claude
+    keyword: cc
+    snippet: claude -c
+
+  - name: exit
+    keyword: e
+    snippet: exit
+
+  # pipe operations
+  - name: grep pipe
+    keyword: G
+    snippet: "| grep "
+    context:
+      lbuffer: '.+\s'
+
+  - name: less pipe
+    keyword: L
+    snippet: "| less"
+    context:
+      lbuffer: '.+\s'
+
+  - name: head pipe
+    keyword: H
+    snippet: "| head"
+    context:
+      lbuffer: '.+\s'
+
+  - name: tail pipe
+    keyword: T
+    snippet: "| tail"
+    context:
+      lbuffer: '.+\s'
+
+  - name: copy pipe
+    keyword: CC
+    snippet: "| pbcopy"
+    context:
+      lbuffer: '.+\s'
+
+  - name: yq pipe
+    keyword: Y
+    snippet: "| yq "
+    context:
+      lbuffer: '.+\s'
+
+  - name: jq pipe
+    keyword: J
+    snippet: "| jq "
+    context:
+      lbuffer: '.+\s'
+
+  - name: fzf pipe
+    keyword: F
+    snippet: "| fzf"
+    context:
+      lbuffer: '.+\s'
+
+  - name: null redirect
+    keyword: "null"
+    snippet: ">/dev/null 2>&1"
+    context:
+      lbuffer: '.+\s'
+
+  - name: cd after command
+    keyword: CD
+    snippet: "&& cd $_"
+    context:
+      lbuffer: '.+\s'
+
+  # aws
+  - name: aws sso login
+    keyword: asl
+    snippet: aws sso login --profile
+
+  - name: aws profile
+    keyword: AP
+    snippet: AWS_PROFILE=
+
+  - name: aws configure list
+    keyword: awsl
+    snippet: aws configure list
+
+  - name: ssm session
+    keyword: "ssm;"
+    snippet: aws ssm start-session --target {{instance-id}} --profile
+
+completions:
+  # process completion for kill
+  - name: process
+    patterns:
+      - "^kill( -9)? $"
+    sourceCommand: "ps aux | tail -n +2"
+    options:
+      --multi: true
+      --prompt: "'Process> '"
+    callback: "awk '{print $2}'"
+
+  # ssh host completion
+  - name: ssh host
+    patterns:
+      - "^ssh $"
+    sourceCommand: "grep -E '^Host ' ~/.ssh/config | awk '{print $2}' | grep -v '*'"
+    options:
+      --prompt: "'Host> '"

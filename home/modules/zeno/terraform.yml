@@ -1,0 +1,57 @@
+snippets:
+  - name: terraform
+    keyword: tf
+    snippet: terraform
+
+  - name: terraform init
+    keyword: tfi
+    snippet: terraform init -reconfigure -backend-config=local.tfbackend -upgrade
+
+  - name: terraform plan
+    keyword: tfp
+    snippet: terraform plan
+
+  - name: terraform apply
+    keyword: tfa
+    snippet: terraform apply
+
+  - name: terraform destroy
+    keyword: tfd
+    snippet: terraform destroy
+
+  - name: terraform output
+    keyword: tfo
+    snippet: terraform output
+
+  - name: terraform state
+    keyword: tfs
+    snippet: terraform state
+
+  - name: terragrunt
+    keyword: tg
+    snippet: terragrunt
+
+  - name: terragrunt plan
+    keyword: tgp
+    snippet: terragrunt plan
+
+  - name: terragrunt plan all
+    keyword: tgpa
+    snippet: terragrunt plan -all
+
+  - name: terragrunt apply
+    keyword: tga
+    snippet: terragrunt apply
+
+  - name: terragrunt apply all
+    keyword: tgaa
+    snippet: terragrunt apply -all
+
+completions:
+  # terraform state resource completion
+  - name: terraform state
+    patterns:
+      - "^terraform state (show|rm|mv) $"
+    sourceCommand: "terraform state list 2>/dev/null"
+    options:
+      --prompt: "'Resource> '"

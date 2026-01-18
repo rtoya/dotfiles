@@ -2,7 +2,7 @@
 
 let
   # ディレクトリ内のdefault.nixを自動インポート
-  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ];
+  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ];
 in
 
 {

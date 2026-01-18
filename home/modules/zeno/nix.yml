@@ -1,0 +1,12 @@
+snippets:
+  - name: nix flake update
+    keyword: nfu
+    snippet: nix flake update --flake ~/dotfiles
+
+  - name: nix garbage collect
+    keyword: ngc
+    snippet: nix-collect-garbage -d
+
+  - name: home-manager switch
+    keyword: hms
+    snippet: nix run github:nix-community/home-manager -- switch --flake ~/dotfiles#mbp

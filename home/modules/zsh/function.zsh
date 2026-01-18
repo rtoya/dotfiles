@@ -46,27 +46,7 @@ function ghi() {
   fi
 }
 
-# [h] 履歴検索 [peco,history]
-function h() {
-  local cmd
-  cmd=$(history -n 1 | tail -r | peco --layout=bottom-up --query "$1")
-  if [ -n "$cmd" ]; then
-    print -z "$cmd"
-  fi
-}
-
-# Ctrl+R用のZLEウィジェット (内部関数)
-function _peco_history_widget() {
-  local cmd
-  cmd=$(history -n 1 | tail -r | peco --layout=bottom-up --query "$LBUFFER")
-  if [ -n "$cmd" ]; then
-    BUFFER="$cmd"
-    CURSOR=$#BUFFER
-  fi
-  zle reset-prompt
-}
-zle -N _peco_history_widget
-bindkey '^r' _peco_history_widget
+# Ctrl+R history search is now handled by zeno.zsh
 
 # [aic] AIコミットメッセージ生成 (Claude) [git,claude]
 function aic() {

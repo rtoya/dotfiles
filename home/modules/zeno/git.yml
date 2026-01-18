@@ -1,0 +1,111 @@
+snippets:
+  - name: git
+    keyword: g
+    snippet: git
+
+  - name: git status
+    keyword: gs
+    snippet: git status -s -b
+
+  - name: git status
+    keyword: gst
+    snippet: git status -s -b
+
+  - name: git branch
+    keyword: gb
+    snippet: git branch
+
+  - name: git checkout
+    keyword: gco
+    snippet: git checkout
+
+  - name: git fetch
+    keyword: gf
+    snippet: git fetch
+
+  - name: git grep
+    keyword: gg
+    snippet: git grep
+
+  - name: git merge
+    keyword: gm
+    snippet: git merge
+
+  - name: git push
+    keyword: gp
+    snippet: git push
+
+  - name: git pull
+    keyword: gpl
+    snippet: git pull
+
+  - name: git log oneline
+    keyword: glo
+    snippet: git log --oneline
+
+  - name: git diff
+    keyword: gd
+    snippet: git diff
+
+  - name: git diff staged
+    keyword: gds
+    snippet: git diff --staged
+
+  - name: git add
+    keyword: ga
+    snippet: git add
+
+  - name: git add all
+    keyword: gaa
+    snippet: git add -A
+
+  - name: current branch
+    keyword: B
+    snippet: $(git symbolic-ref --short HEAD)
+    context:
+      lbuffer: '.+\s'
+    evaluate: true
+
+  - name: project root
+    keyword: proot
+    snippet: cd $(git rev-parse --show-toplevel)
+
+  - name: git log names from main
+    keyword: gln
+    snippet: git log main..HEAD --name-only
+
+  - name: git diff stat from main
+    keyword: gdst
+    snippet: git diff --stat main..HEAD
+
+  - name: git commit empty
+    keyword: gce
+    snippet: git commit --allow-empty -m "empty commit"
+
+  - name: git push current branch
+    keyword: gpush
+    snippet: git push origin $(git branch --show-current)
+
+  - name: git branch delete merged
+    keyword: gbd
+    snippet: git branch --merged | grep -Ev "main|master|develop" | xargs -I% git branch -D %
+
+completions:
+  # git branch completion
+  - name: git branch
+    patterns:
+      - "^git (checkout|switch|merge|rebase|branch -d) $"
+    sourceCommand: "git branch -a --format='%(refname:short)' 2>/dev/null"
+    options:
+      --prompt: "'Branch> '"
+      --preview: "git log --oneline -20 {}"
+
+  # git file completion for add/restore
+  - name: git files
+    patterns:
+      - "^git (add|restore|checkout --) $"
+    sourceCommand: "git status --porcelain | awk '{print $2}'"
+    options:
+      --multi: true
+      --prompt: "'File> '"
+      --preview: "git diff --color=always {}"

@@ -1,0 +1,145 @@
+snippets:
+  - name: kubectl
+    keyword: k
+    snippet: kubectl
+
+  - name: kubectl get
+    keyword: kg
+    snippet: kubectl get
+
+  - name: kubectl get pods
+    keyword: kgp
+    snippet: kubectl get pods
+
+  - name: kubectl describe
+    keyword: kd
+    snippet: kubectl describe
+
+  - name: kubectl describe pod
+    keyword: kdp
+    snippet: kubectl describe pod
+
+  - name: kubectl ctx
+    keyword: kx
+    snippet: kubectl ctx
+
+  - name: kubectl ns
+    keyword: kn
+    snippet: kubectl ns
+
+  - name: kubectl logs
+    keyword: kl
+    snippet: kubectl logs
+
+  - name: kubectl logs follow
+    keyword: klf
+    snippet: kubectl logs -f
+
+  - name: kubectl apply
+    keyword: ka
+    snippet: kubectl apply -f
+
+  - name: kubectl delete
+    keyword: kdel
+    snippet: kubectl delete
+
+  - name: kustomize
+    keyword: ks
+    snippet: kustomize
+
+  - name: stern
+    keyword: st
+    snippet: kubectl stern
+
+  - name: kubectl neat
+    keyword: neat
+    snippet: kubectl neat
+
+  # krew plugins
+  - name: kubectl node-shell
+    keyword: knode
+    snippet: kubectl node-shell
+
+  - name: kubectl sniff
+    keyword: ksniff
+    snippet: kubectl sniff
+
+  - name: kubectl get-all
+    keyword: kall
+    snippet: kubectl get-all
+
+  - name: kubectl tree
+    keyword: ktree
+    snippet: kubectl tree
+
+  - name: kubectl tail
+    keyword: ktail
+    snippet: kubectl tail
+
+  - name: kubectl status
+    keyword: kstatus
+    snippet: kubectl status
+
+  - name: kubectl score
+    keyword: kscore
+    snippet: kubectl score
+
+  - name: kubectl iexec
+    keyword: kex
+    snippet: kubectl iexec
+
+  - name: kubectl datadog
+    keyword: kdd
+    snippet: kubectl datadog
+
+  - name: kubectl resource-capacity
+    keyword: krc
+    snippet: kubectl resource-capacity
+
+  - name: kubectl rolesum
+    keyword: krolesum
+    snippet: kubectl rolesum
+
+  - name: kubectl view-utilization
+    keyword: kvu
+    snippet: kubectl view-utilization
+
+  - name: kubectl open-svc
+    keyword: kosvc
+    snippet: kubectl open-svc
+
+completions:
+  # namespace completion
+  - name: kubectl namespace
+    patterns:
+      - "^kubectl .* -n $"
+      - "^k .* -n $"
+    sourceCommand: "kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\\n'"
+    options:
+      --prompt: "'Namespace> '"
+
+  # pod completion
+  - name: kubectl pod
+    patterns:
+      - "^kubectl (logs|describe pod|exec|port-forward) $"
+      - "^kubectl (logs|describe pod|exec|port-forward) .* -n [a-z0-9-]+ $"
+    sourceCommand: "kubectl get pods --no-headers -o custom-columns=':metadata.name'"
+    options:
+      --prompt: "'Pod> '"
+      --preview: "kubectl describe pod {}"
+
+  # deployment completion
+  - name: kubectl deployment
+    patterns:
+      - "^kubectl (describe deployment|scale deployment|rollout .* deployment) $"
+    sourceCommand: "kubectl get deployments --no-headers -o custom-columns=':metadata.name'"
+    options:
+      --prompt: "'Deployment> '"
+
+  # context completion
+  - name: kubectl context
+    patterns:
+      - "^kubectl ctx $"
+    sourceCommand: "kubectl config get-contexts -o name"
+    options:
+      --prompt: "'Context> '"
