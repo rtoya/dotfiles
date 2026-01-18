@@ -39,8 +39,12 @@ snippets:
     snippet: lazydocker
 
   - name: claude
+    keyword: c
+    snippet: mise exec -- claude
+
+  - name: claude
     keyword: cc
-    snippet: claude -c
+    snippet: mise exec -- claude -c
 
   - name: exit
     keyword: e
