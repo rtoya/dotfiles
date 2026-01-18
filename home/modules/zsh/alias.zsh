@@ -5,8 +5,8 @@ alias vim='nvim'
 alias vi='nvim'
 
 # git
-alias gi='create-gitignore'
-alias gc='aic'
+# alias gi='create-gitignore'
+# alias gc='aic'
 
 # kubernetes
 alias kubectl='kubecolor'

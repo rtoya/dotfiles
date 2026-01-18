@@ -78,6 +78,10 @@ snippets:
     keyword: gdst
     snippet: git diff --stat main..HEAD
 
+  - name: aicommits
+    keyword: gc
+    snippet: aic
+
   - name: git commit empty
     keyword: gce
     snippet: git commit --allow-empty -m "empty commit"
@@ -89,6 +93,10 @@ snippets:
   - name: git branch delete merged
     keyword: gbd
     snippet: git branch --merged | grep -Ev "main|master|develop" | xargs -I% git branch -D %
+
+  - name: create-gitignore
+    keyword: gi
+    snippet: create-gitignore
 
 completions:
   # git branch completion
