@@ -23,6 +23,7 @@ in
     gibo
     git
     google-cloud-sdk
+    jujutsu
     kubecolor
     kubectl
     kustomize
