@@ -1,0 +1,93 @@
+snippets:
+  # basic
+  - name: jj init
+    keyword: jji
+    snippet: jj git init --colocate
+
+  - name: jj status
+    keyword: jjst
+    snippet: jj status
+
+  - name: jj log
+    keyword: jjl
+    snippet: jj log
+
+  - name: jj log oneline
+    keyword: jjlo
+    snippet: jj log --no-graph -r 'all()' -T 'change_id.shortest() ++ " " ++ description.first_line() ++ "\n"'
+
+  - name: jj diff
+    keyword: jjd
+    snippet: jj diff
+
+  - name: jj diff revision
+    keyword: jjdr
+    snippet: jj diff -r
+
+  # commit operations
+  - name: jj new
+    keyword: jjn
+    snippet: jj new
+
+  - name: jj describe
+    keyword: jjde
+    snippet: jj describe -m
+
+  - name: jj edit
+    keyword: jje
+    snippet: jj edit
+
+  - name: jj squash
+    keyword: jjsq
+    snippet: jj squash
+
+  - name: jj abandon
+    keyword: jja
+    snippet: jj abandon
+
+  - name: jj split
+    keyword: jjsp
+    snippet: jj split
+
+  - name: jj rebase
+    keyword: jjrb
+    snippet: jj rebase -d
+
+  # bookmark (branch)
+  - name: jj bookmark list
+    keyword: jjbl
+    snippet: jj bookmark list
+
+  - name: jj bookmark create
+    keyword: jjbc
+    snippet: jj bookmark create
+
+  - name: jj bookmark set
+    keyword: jjbs
+    snippet: jj bookmark set
+
+  - name: jj bookmark move
+    keyword: jjbm
+    snippet: jj bookmark move
+
+  # git integration
+  - name: jj git fetch
+    keyword: jjgf
+    snippet: jj git fetch
+
+  - name: jj git push
+    keyword: jjgp
+    snippet: jj git push
+
+  - name: jj git push create
+    keyword: jjgpc
+    snippet: jj git push --allow-new
+
+  # undo
+  - name: jj undo
+    keyword: jju
+    snippet: jj undo
+
+  - name: jj operation log
+    keyword: jjop
+    snippet: jj operation log

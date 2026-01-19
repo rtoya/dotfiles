@@ -3,6 +3,7 @@ $include:
   - ./k8s.yml
   - ./terraform.yml
   - ./nix.yml
+  - ./jj.yml
 
 snippets:
   # shell basic

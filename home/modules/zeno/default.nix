@@ -23,5 +23,6 @@ in
     "zeno/k8s.yml".source = config.lib.file.mkOutOfStoreSymlink "${zenoDir}/k8s.yml";
     "zeno/terraform.yml".source = config.lib.file.mkOutOfStoreSymlink "${zenoDir}/terraform.yml";
     "zeno/nix.yml".source = config.lib.file.mkOutOfStoreSymlink "${zenoDir}/nix.yml";
+    "zeno/jj.yml".source = config.lib.file.mkOutOfStoreSymlink "${zenoDir}/jj.yml";
   };
 }
