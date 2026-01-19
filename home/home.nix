@@ -23,7 +23,6 @@ in
     gibo
     git
     google-cloud-sdk
-    jujutsu
     kubecolor
     kubectl
     kustomize
@@ -51,6 +50,21 @@ in
     settings = {
       user.name = "rtoya";
       user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+    };
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user.name = "rtoya";
+      user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+      ui = {
+        default-command = "log";
+        pager = "less -FRX";
+      };
+      aliases = {
+        l = ["log" "-r" "(main..@):: | (main..@)-"];
+      };
     };
   };
 
