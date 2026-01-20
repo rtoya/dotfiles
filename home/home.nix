@@ -25,6 +25,7 @@ in
     google-cloud-sdk
     kubecolor
     kubectl
+    kubeseal
     kustomize
     mise
     peco
