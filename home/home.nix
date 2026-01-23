@@ -2,7 +2,7 @@
 
 let
   # ディレクトリ内のdefault.nixを自動インポート
-  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ];
+  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ];
 in
 
 {
@@ -89,13 +89,6 @@ in
     enable = true;
     enableZshIntegration = true;
     options = [ "--cmd" "cd" ];  # cdコマンドをzoxideに置き換え
-  };
-
-  # direnv (directory-specific env vars)
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
   };
 
   home.sessionVariables = {
