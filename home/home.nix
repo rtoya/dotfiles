@@ -2,7 +2,7 @@
 
 let
   # ディレクトリ内のdefault.nixを自動インポート
-  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ];
+  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ./modules/gh-dash ];
 in
 
 {
@@ -19,6 +19,7 @@ in
     chezmoi
     eza
     gat
+    gh-dash
     ghq
     gibo
     git

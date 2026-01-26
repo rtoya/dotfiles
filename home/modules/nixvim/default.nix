@@ -88,6 +88,11 @@
       enable = true;
     };
 
+    # diffview（Git差分表示）
+    plugins.diffview = {
+      enable = true;
+    };
+
     # telescope（ファジーファインダー）
     plugins.telescope = {
       enable = true;
