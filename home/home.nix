@@ -19,7 +19,6 @@ in
     chezmoi
     eza
     gat
-    gh-dash
     ghq
     gibo
     git
@@ -74,6 +73,7 @@ in
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
+    extensions = [ pkgs.gh-dash ];
   };
 
   # mise

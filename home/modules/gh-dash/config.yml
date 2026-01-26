@@ -24,18 +24,12 @@ keybindings:
     # d: diffview で差分表示
     - key: d
       command: >
-        tmux neww -n "diffview" "
-          cd {{.RepoPath}} &&
-          git fetch origin pull/{{.PrNumber}}/head:pr-{{.PrNumber}} 2>/dev/null;
-          git checkout pr-{{.PrNumber}} 2>/dev/null;
-          nvim -c 'DiffviewOpen origin/{{.BaseRefName}}...HEAD' &&
-          tmux kill-window
-        "
+        cd {{.RepoPath}} &&
+        git fetch origin pull/{{.PrNumber}}/head:pr-{{.PrNumber}} 2>/dev/null &&
+        git checkout pr-{{.PrNumber}} 2>/dev/null &&
+        nvim -c 'DiffviewOpen origin/{{.BaseRefName}}...HEAD'
     # C: Octo でレビュー開始
     - key: C
       command: >
-        tmux neww -n "review" "
-          cd {{.RepoPath}} &&
-          nvim -c 'Octo pr edit {{.PrNumber}}' -c 'Octo review start' &&
-          tmux kill-window
-        "
+        cd {{.RepoPath}} &&
+        nvim -c 'Octo pr edit {{.PrNumber}}' -c 'Octo review start'
