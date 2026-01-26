@@ -151,3 +151,12 @@ function af() {
     print -z "$cmd"
   fi
 }
+
+# [y] yazi終了時にカレントディレクトリを変更 [yazi]
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
