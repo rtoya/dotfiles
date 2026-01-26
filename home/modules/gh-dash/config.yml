@@ -21,15 +21,17 @@ defaults:
 
 keybindings:
   prs:
-    # d: diffview で差分表示
+    # d: diffview で差分表示 (zellij対応)
     - key: d
       command: >
-        cd {{.RepoPath}} &&
-        git fetch origin pull/{{.PrNumber}}/head:pr-{{.PrNumber}} 2>/dev/null &&
-        git checkout pr-{{.PrNumber}} 2>/dev/null &&
-        nvim -c 'DiffviewOpen origin/{{.BaseRefName}}...HEAD'
-    # C: Octo でレビュー開始
+        zellij action new-tab --name "diffview-{{.PrNumber}}" --cwd {{.RepoPath}} -- bash -c "
+          git fetch origin pull/{{.PrNumber}}/head:pr-{{.PrNumber}} 2>/dev/null &&
+          git checkout pr-{{.PrNumber}} 2>/dev/null &&
+          nvim -c 'DiffviewOpen origin/{{.BaseRefName}}...HEAD'
+        "
+    # C: Octo でレビュー開始 (zellij対応)
     - key: C
       command: >
-        cd {{.RepoPath}} &&
-        nvim -c 'Octo pr edit {{.PrNumber}}' -c 'Octo review start'
+        zellij action new-tab --name "review-{{.PrNumber}}" --cwd {{.RepoPath}} -- bash -c "
+          nvim -c 'Octo pr edit {{.PrNumber}}' -c 'Octo review start'
+        "

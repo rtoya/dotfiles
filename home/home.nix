@@ -33,6 +33,7 @@ in
     tree
     xh
     yq
+    zellij
   ];
 
   # fonts (macOS)
