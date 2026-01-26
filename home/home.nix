@@ -32,6 +32,7 @@ in
     tig
     tree
     xh
+    yazi
     yq
     zellij
   ];
