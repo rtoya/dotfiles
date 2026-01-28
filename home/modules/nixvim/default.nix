@@ -59,7 +59,7 @@
       enable = true;
       settings = {
         highlight.enable = true;
-        ensure_installed = [ "nix" "lua" "bash" "json" "yaml" "toml" "markdown" ];
+        ensure_installed = [ "nix" "lua" "bash" "json" "yaml" "toml" "markdown" "typescript" ];
       };
     };
 

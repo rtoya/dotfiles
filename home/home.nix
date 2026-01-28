@@ -91,7 +91,7 @@ in
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    options = [ "--cmd" "cd" ];  # cdコマンドをzoxideに置き換え
+    # options = [ "--cmd" "cd" ];  # cdコマンドをzoxideに置き換え
   };
 
   home.sessionVariables = {
