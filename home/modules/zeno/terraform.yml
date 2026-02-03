@@ -15,6 +15,10 @@ snippets:
     keyword: tfa
     snippet: terraform apply
 
+  - name: terraform apply auto-approve
+    keyword: tfaa
+    snippet: terraform apply -auto-approve
+
   - name: terraform destroy
     keyword: tfd
     snippet: terraform destroy
@@ -26,6 +30,14 @@ snippets:
   - name: terraform state
     keyword: tfs
     snippet: terraform state
+
+  - name: terraform workspace list
+    keyword: tfwl
+    snippet: terraform workspace list
+
+  - name: terraform workspace select
+    keyword: tfws
+    snippet: terraform workspace select
 
   - name: terragrunt
     keyword: tg
