@@ -65,6 +65,7 @@ Rules:
 - Keep the first line under 50 characters
 - Be specific about what changed
 - Output ONLY the commit message, nothing else
+- Do not use code blocks
 
 Diff:
 $diff"
@@ -74,9 +75,6 @@ $diff"
     echo "Error: Failed to generate commit message."
     return 1
   fi
-
-  # コードブロック（```で始まる行）を除去し、前後の空行をトリム
-  message=$(echo "$message" | sed '/^```/d' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 
   echo "\nGenerated message:"
   echo "─────────────────"
