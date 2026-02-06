@@ -1,6 +1,6 @@
 [tools]
 aqua = "2.56.3"
-claude-code = "2.1.6"
+claude-code = "2.1.32"
 pre-commit = "4.5.1"
 gitleaks = "8.30.0"
 
