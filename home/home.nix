@@ -53,6 +53,7 @@ in
     settings = {
       user.name = "rtoya";
       user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+      ghq.root = "~/development";
     };
   };
 
