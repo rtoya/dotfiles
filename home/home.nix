@@ -1,6 +1,20 @@
 { config, pkgs, lib, username, homeDirectory, ... }:
 
 let
+  gh-aw = pkgs.stdenv.mkDerivation rec {
+    pname = "gh-aw";
+    version = "0.45.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/github/gh-aw/releases/download/v${version}/darwin-arm64";
+      sha256 = "sha256-ftP+aClD91LS7weQYvRV/+6bA43lStbpWNwEQMWNfkk=";
+    };
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/gh-aw
+      chmod +x $out/bin/gh-aw
+    '';
+  };
   # ディレクトリ内のdefault.nixを自動インポート
   toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ./modules/gh-dash ];
 in
@@ -76,7 +90,7 @@ in
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
-    extensions = [ pkgs.gh-dash ];
+    extensions = [ pkgs.gh-dash gh-aw ];
   };
 
   # mise
