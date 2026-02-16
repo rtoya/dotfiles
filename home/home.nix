@@ -15,6 +15,20 @@ let
       chmod +x $out/bin/gh-aw
     '';
   };
+  gogcli = pkgs.stdenv.mkDerivation rec {
+    pname = "gogcli";
+    version = "0.11.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/steipete/gogcli/releases/download/v${version}/gogcli_${version}_darwin_arm64.tar.gz";
+      sha256 = "sha256-ESaGjD+TmhSqlld9Vlj1/vHhU58zJzC/NaBudBYsnmE=";
+    };
+    sourceRoot = ".";
+    installPhase = ''
+      mkdir -p $out/bin
+      cp gog $out/bin/gog
+      chmod +x $out/bin/gog
+    '';
+  };
   # ディレクトリ内のdefault.nixを自動インポート
   toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ./modules/gh-dash ];
 in
@@ -49,6 +63,7 @@ in
     yazi
     yq
     zellij
+    gogcli
   ];
 
   # fonts (macOS)
