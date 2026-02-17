@@ -15,6 +15,20 @@ let
       chmod +x $out/bin/gh-aw
     '';
   };
+  datadog-mcp-cli = pkgs.stdenv.mkDerivation rec {
+    pname = "datadog-mcp-cli";
+    version = "latest";
+    src = pkgs.fetchurl {
+      url = "https://coterm.datadoghq.com/mcp-cli/datadog_mcp_cli-macos-arm64";
+      sha256 = "sha256-7DtQTdJaQt7HFRaEpgbqIXlCS5DbiqHDSjfhL+1OoyE=";
+    };
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/datadog-mcp-cli
+      chmod +x $out/bin/datadog-mcp-cli
+    '';
+  };
   gogcli = pkgs.stdenv.mkDerivation rec {
     pname = "gogcli";
     version = "0.11.0";
@@ -64,6 +78,7 @@ in
     yq
     zellij
     gogcli
+    datadog-mcp-cli
   ];
 
   # fonts (macOS)
