@@ -139,6 +139,12 @@ in
     # options = [ "--cmd" "cd" ];  # cdコマンドをzoxideに置き換え
   };
 
+  # atuin (shell history)
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home.sessionVariables = {
     EDITOR = "vim";
   };
