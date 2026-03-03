@@ -22,8 +22,8 @@ if (( $+functions[zeno-auto-snippet] )); then
   # tab: use zeno-completion only with Ctrl+X Tab to avoid syntax-highlighting conflict
   bindkey '^x^i' zeno-completion
 
-  # ctrl+r: history selection (zeno smart search)
-  bindkey '^r' zeno-history-selection
+  # ctrl+r: history selection is now handled by atuin
+  # bindkey '^r' zeno-history-selection
 
   # ctrl+x ctrl+m: accept line without snippet expansion
   bindkey '^x^m' accept-line

@@ -70,6 +70,7 @@ in
     kubeseal
     kustomize
     mise
+    nodejs
     peco
     tig
     tree
@@ -143,6 +144,9 @@ in
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
+    settings = {
+      show_numeric_shortcuts = false;
+    };
   };
 
   home.sessionVariables = {

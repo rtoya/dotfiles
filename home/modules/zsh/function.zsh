@@ -46,7 +46,7 @@ function ghi() {
   fi
 }
 
-# Ctrl+R history search is now handled by zeno.zsh
+# Ctrl+R history search is now handled by atuin
 
 # [aic] AIコミットメッセージ生成 (Claude) [git,claude]
 function aic() {
