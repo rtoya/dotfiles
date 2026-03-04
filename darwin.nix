@@ -11,9 +11,10 @@
     };
   };
 
-  environment.shellInit = ''
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  '';
+  environment.systemPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
 
   users.users.ryotoya = {
     home = "/Users/ryotoya";
