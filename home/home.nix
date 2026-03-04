@@ -1,4 +1,4 @@
-{ config, pkgs, lib, username, homeDirectory, ... }:
+{ config, pkgs, lib, username, homeDirectory, nixvimModule, ... }:
 
 let
   gh-aw = pkgs.stdenv.mkDerivation rec {
@@ -48,7 +48,7 @@ let
 in
 
 {
-  imports = toolDirs;
+  imports = [ nixvimModule ] ++ toolDirs;
 
   home.username = username;
   home.homeDirectory = homeDirectory;
