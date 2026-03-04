@@ -11,6 +11,10 @@
     };
   };
 
+  users.users.ryotoya = {
+    home = "/Users/ryotoya";
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
