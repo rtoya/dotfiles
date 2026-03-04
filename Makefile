@@ -1,4 +1,4 @@
-.PHONY: install-nix setup-flakes switch setup
+.PHONY: install-nix switch setup
 
 # Nixをインストール
 install-nix:
@@ -8,19 +8,14 @@ install-nix:
 		curl -L https://nixos.org/nix/install | sh; \
 	fi
 
-# Flakes機能を有効化
-setup-flakes:
-	@if [ -f ~/.config/nix/nix.conf ] && grep -q 'experimental-features.*flakes' ~/.config/nix/nix.conf 2>/dev/null; then \
-		echo "Flakes is already enabled, skipping..."; \
+# 設定を適用（nix-darwin経由でhome-manager + homebrewも管理）
+switch:
+	@if command -v darwin-rebuild >/dev/null 2>&1; then \
+		sudo darwin-rebuild switch --flake .#mbp; \
 	else \
-		mkdir -p ~/.config/nix; \
-		echo 'experimental-features = nix-command flakes' > ~/.config/nix/nix.conf; \
-		echo "Flakes enabled"; \
+		echo "darwin-rebuild not found, bootstrapping via nix run..."; \
+		nix build .#darwinConfigurations.mbp.system && sudo ./result/activate; \
 	fi
 
-# 設定を適用
-switch:
-	nix run github:nix-community/home-manager -- switch -b backup --flake .#mbp
-
 # 初回セットアップ（Nix未インストールの場合）
-setup: install-nix setup-flakes switch
+setup: install-nix switch
