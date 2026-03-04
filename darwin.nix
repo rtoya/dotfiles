@@ -20,5 +20,6 @@
     "flakes"
   ];
 
+  system.primaryUser = "ryotoya";
   system.stateVersion = 5;
 }
