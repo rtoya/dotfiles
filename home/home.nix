@@ -60,6 +60,7 @@ in
     bat
     chezmoi
     eza
+    ffmpeg
     gat
     ghq
     gibo
