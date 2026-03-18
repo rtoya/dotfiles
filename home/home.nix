@@ -66,12 +66,14 @@ in
     gibo
     git
     google-cloud-sdk
+    graphviz
     kubecolor
     kubectl
     kubeseal
     kustomize
     mise
     nodejs
+    postgresql
     peco
     tig
     tree

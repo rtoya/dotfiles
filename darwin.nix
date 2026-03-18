@@ -5,6 +5,7 @@
     enable = true;
     casks = [
       "blackhole-2ch"
+      "keycastr"
     ];
     onActivation = {
       cleanup = "none";
