@@ -59,6 +59,7 @@ in
     awscli2
     bat
     chezmoi
+    claude-code
     eza
     ffmpeg
     gat
