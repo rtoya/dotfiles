@@ -1,6 +1,5 @@
 [tools]
 aqua = "2.56.3"
-"npm:@anthropic-ai/claude-code" = "2.1.237"
 pre-commit = "4.5.1"
 gitleaks = "8.30.0"
 
