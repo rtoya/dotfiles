@@ -4,6 +4,7 @@ $include:
   - ./terraform.yml
   - ./nix.yml
   - ./jj.yml
+  - ./aws.yml
 
 snippets:
   # shell basic
@@ -111,23 +112,6 @@ snippets:
     snippet: "&& cd $_"
     context:
       lbuffer: '.+\s'
-
-  # aws
-  - name: aws sso login
-    keyword: asl
-    snippet: aws sso login --profile
-
-  - name: aws profile
-    keyword: AP
-    snippet: AWS_PROFILE=
-
-  - name: aws configure list
-    keyword: awsl
-    snippet: aws configure list
-
-  - name: ssm session
-    keyword: "ssm;"
-    snippet: aws ssm start-session --target {{instance-id}} --profile
 
 completions:
   # process completion for kill

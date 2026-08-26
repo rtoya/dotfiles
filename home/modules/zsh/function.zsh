@@ -161,3 +161,153 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+# [rdspw] RDSクラスタ選択 → マスターパスワード取得 (fzf) [aws,rds,fzf,secretsmanager]
+function rdspw() {
+  local profile="" show=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -p|--profile) profile="$2"; shift 2 ;;
+      -s|--show)    show=1; shift ;;
+      -h|--help)
+        cat <<'USAGE'
+Usage: rdspw [-p|--profile <profile>] [-s|--show]
+
+  RDSクラスタをfzfで選択し、マスターパスワードを取得してクリップボードにコピーする。
+  MasterUserSecret(RDS管理シークレット)があればそこから取得し、
+  無い場合はSecrets Manager / SSM Parameter Storeの候補をfzfで選択する。
+
+Options:
+  -p, --profile   AWSプロファイル (省略時は $AWS_PROFILE、未設定ならfzfで選択)
+  -s, --show      パスワードをマスクせず標準出力に表示する
+USAGE
+        return 0 ;;
+      *) profile="$1"; shift ;;
+    esac
+  done
+
+  local cmd
+  for cmd in aws jq fzf; do
+    command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd not found." >&2; return 1; }
+  done
+
+  # プロファイル決定
+  [ -z "$profile" ] && profile="${AWS_PROFILE:-}"
+  if [ -z "$profile" ]; then
+    profile=$(aws configure list-profiles | fzf --prompt='AWS Profile> ' --height=40%)
+    [ -z "$profile" ] && { echo "Cancelled."; return 0; }
+  fi
+
+  # 認証確認（期限切れならSSOログインを提案）
+  if ! aws sts get-caller-identity --profile "$profile" >/dev/null 2>&1; then
+    echo "Credentials for '$profile' are invalid or expired."
+    if read -q "?Run 'aws sso login --profile $profile'? [y/N] "; then
+      echo ""
+      aws sso login --profile "$profile" || return 1
+    else
+      echo ""
+      return 1
+    fi
+  fi
+
+  local tmp
+  tmp=$(mktemp -t rdspw.XXXXXX) || return 1
+  if ! aws rds describe-db-clusters --profile "$profile" --output json >"$tmp" 2>/dev/null; then
+    echo "Error: failed to describe DB clusters (profile: $profile)." >&2
+    rm -f "$tmp"
+    return 1
+  fi
+
+  local cluster
+  cluster=$(
+    jq -r '.DBClusters[] | [.DBClusterIdentifier, .Engine, .MasterUsername, .Status] | @tsv' "$tmp" \
+      | column -t -s $'\t' \
+      | fzf --prompt='RDS Cluster> ' --height=80% \
+            --preview "jq -r --arg id {1} '.DBClusters[] | select(.DBClusterIdentifier==\$id) | {DBClusterIdentifier, Engine, EngineVersion, Endpoint, ReaderEndpoint, Port, DatabaseName, MasterUsername, Status, MasterUserSecret: (.MasterUserSecret.SecretArn // \"none\")}' $tmp" \
+            --preview-window=right:55% \
+      | awk '{print $1}'
+  )
+  if [ -z "$cluster" ]; then
+    echo "Cancelled."
+    rm -f "$tmp"
+    return 0
+  fi
+
+  local username endpoint port secret_arn
+  username=$(jq -r --arg id "$cluster" '.DBClusters[] | select(.DBClusterIdentifier==$id) | .MasterUsername' "$tmp")
+  endpoint=$(jq -r --arg id "$cluster" '.DBClusters[] | select(.DBClusterIdentifier==$id) | .Endpoint' "$tmp")
+  port=$(jq -r --arg id "$cluster" '.DBClusters[] | select(.DBClusterIdentifier==$id) | .Port' "$tmp")
+  secret_arn=$(jq -r --arg id "$cluster" '.DBClusters[] | select(.DBClusterIdentifier==$id) | .MasterUserSecret.SecretArn // empty' "$tmp")
+  rm -f "$tmp"
+
+  local password="" source_desc=""
+  if [ -n "$secret_arn" ]; then
+    # RDS管理シークレット: {"username":"...","password":"..."}
+    local secret_string
+    secret_string=$(aws secretsmanager get-secret-value --profile "$profile" \
+      --secret-id "$secret_arn" --query SecretString --output text 2>/dev/null)
+    if [ -z "$secret_string" ]; then
+      echo "Error: failed to read secret: $secret_arn" >&2
+      return 1
+    fi
+    password=$(printf '%s' "$secret_string" | jq -r '.password // empty' 2>/dev/null)
+    source_desc="secretsmanager: ${secret_arn##*:secret:}"
+  else
+    # 管理シークレット無し: Secrets Manager / SSM から候補を選択
+    echo "No MasterUserSecret on '$cluster'. Searching Secrets Manager / SSM..."
+    local candidates selected kind name
+    candidates=$(
+      {
+        aws secretsmanager list-secrets --profile "$profile" \
+          --query 'SecretList[].Name' --output text 2>/dev/null \
+          | tr '\t' '\n' | sed 's|^|secretsmanager\t|'
+        aws ssm describe-parameters --profile "$profile" \
+          --query 'Parameters[].Name' --output text 2>/dev/null \
+          | tr '\t' '\n' | sed 's|^|ssm\t|'
+      } | sed '/^\(secretsmanager\|ssm\)\t$/d'
+    )
+    if [ -z "$candidates" ]; then
+      echo "Error: no secrets or parameters found in profile '$profile'." >&2
+      return 1
+    fi
+    # クラスタ名から環境名/サービス名を初期クエリにする (例: wevox-prd-front-cluster -> front)
+    local hint
+    hint=$(printf '%s' "$cluster" | sed -E 's/-cluster$//; s/^[a-z0-9]+-(prd|prod|stg|dev)-//')
+    selected=$(printf '%s\n' "$candidates" | column -t -s $'\t' \
+      | fzf --prompt='Secret> ' --height=60% --query "$hint")
+    [ -z "$selected" ] && { echo "Cancelled."; return 0; }
+    kind=$(printf '%s' "$selected" | awk '{print $1}')
+    name=$(printf '%s' "$selected" | awk '{print $2}')
+    case "$kind" in
+      secretsmanager)
+        local raw
+        raw=$(aws secretsmanager get-secret-value --profile "$profile" \
+          --secret-id "$name" --query SecretString --output text 2>/dev/null)
+        password=$(printf '%s' "$raw" | jq -r '.password // .PASSWORD // empty' 2>/dev/null)
+        [ -z "$password" ] && password="$raw"
+        ;;
+      ssm)
+        password=$(aws ssm get-parameter --profile "$profile" --name "$name" \
+          --with-decryption --query Parameter.Value --output text 2>/dev/null)
+        ;;
+    esac
+    source_desc="$kind: $name"
+  fi
+
+  if [ -z "$password" ]; then
+    echo "Error: could not extract a password." >&2
+    return 1
+  fi
+
+  printf '%s' "$password" | pbcopy
+  echo ""
+  echo "cluster   : $cluster"
+  echo "endpoint  : $endpoint:$port"
+  echo "username  : $username"
+  echo "source    : $source_desc"
+  if [ "$show" -eq 1 ]; then
+    echo "password  : $password"
+  else
+    echo "password  : ${password:0:2}$(printf '%*s' $(( ${#password} - 2 )) '' | tr ' ' '*')  (copied to clipboard)"
+  fi
+}

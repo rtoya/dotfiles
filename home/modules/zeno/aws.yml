@@ -1,0 +1,89 @@
+snippets:
+  - name: aws sso login
+    keyword: asl
+    snippet: aws sso login --profile
+
+  - name: aws profile
+    keyword: AP
+    snippet: AWS_PROFILE=
+
+  - name: aws configure list
+    keyword: awsl
+    snippet: aws configure list
+
+  - name: aws whoami
+    keyword: awho
+    snippet: aws sts get-caller-identity
+
+  - name: ssm session
+    keyword: "ssm;"
+    snippet: aws ssm start-session --target {{instance-id}} --profile
+
+  # rds
+  - name: rds master password (fzf)
+    keyword: rdspw
+    snippet: rdspw
+
+  - name: rds describe clusters
+    keyword: rdsc
+    snippet: aws rds describe-db-clusters --query 'DBClusters[].DBClusterIdentifier' --output text
+
+  - name: rds describe instances
+    keyword: rdsi
+    snippet: aws rds describe-db-instances --query 'DBInstances[].DBInstanceIdentifier' --output text
+
+  # secrets manager / ssm parameter store
+  - name: secretsmanager get value
+    keyword: smget
+    snippet: aws secretsmanager get-secret-value --secret-id {{secret-id}} --query SecretString --output text
+    context:
+      lbuffer: '^$'
+
+  - name: ssm get parameter
+    keyword: ssmget
+    snippet: aws ssm get-parameter --with-decryption --query Parameter.Value --output text --name
+
+completions:
+  # aws profile completion
+  - name: aws profile
+    patterns:
+      - "^aws .*--profile $"
+      - "^AWS_PROFILE=$"
+      - "^rdspw (-p|--profile) $"
+      - "^rdspw $"
+    sourceCommand: "aws configure list-profiles"
+    options:
+      --prompt: "'AWS Profile> '"
+
+  # rds cluster identifier completion
+  - name: rds cluster
+    patterns:
+      - "^aws rds .*--db-cluster-identifier $"
+    sourceCommand: "aws rds describe-db-clusters --query 'DBClusters[].DBClusterIdentifier' --output text | tr '\\t' '\\n'"
+    options:
+      --prompt: "'RDS Cluster> '"
+      --preview: "aws rds describe-db-clusters --db-cluster-identifier {} --query 'DBClusters[0].{id:DBClusterIdentifier,engine:Engine,endpoint:Endpoint,user:MasterUsername,status:Status,secret:MasterUserSecret.SecretArn}' --output yaml"
+
+  # rds instance identifier completion
+  - name: rds instance
+    patterns:
+      - "^aws rds .*--db-instance-identifier $"
+    sourceCommand: "aws rds describe-db-instances --query 'DBInstances[].DBInstanceIdentifier' --output text | tr '\\t' '\\n'"
+    options:
+      --prompt: "'RDS Instance> '"
+
+  # secrets manager secret completion
+  - name: secretsmanager secret
+    patterns:
+      - "^aws secretsmanager (get-secret-value|describe-secret) .*--secret-id $"
+    sourceCommand: "aws secretsmanager list-secrets --query 'SecretList[].Name' --output text | tr '\\t' '\\n'"
+    options:
+      --prompt: "'Secret> '"
+
+  # ssm parameter completion
+  - name: ssm parameter
+    patterns:
+      - "^aws ssm (get-parameter|get-parameters) .*--name $"
+    sourceCommand: "aws ssm describe-parameters --query 'Parameters[].Name' --output text | tr '\\t' '\\n'"
+    options:
+      --prompt: "'Parameter> '"

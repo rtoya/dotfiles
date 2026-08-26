@@ -67,7 +67,7 @@ nix flake update
 - **fzf**: ファジーファインダー
 - **gh**: GitHub CLI
 - **krew**: kubectlプラグインマネージャー
-- **mise**: 開発ツールバージョン管理（claude-code等）
+- **mise**: 開発ツールバージョン管理（aqua, pre-commit, gitleaks）
 
 ### モジュール（home/modules/）
 - **nixvim**: Neovim設定（Nix管理）
