@@ -73,6 +73,7 @@ in
     kustomize
     mise
     nodejs
+    pnpm
     postgresql
     peco
     tig
