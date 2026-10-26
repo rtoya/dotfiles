@@ -80,6 +80,7 @@ in
     peco
     tig
     tree
+    uv
     xh
     yazi
     yq
