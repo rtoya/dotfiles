@@ -103,7 +103,7 @@ in
     enable = true;
     settings = {
       user.name = "rtoya";
-      user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+      user.email = "4003442+rtoya@users.noreply.github.com";
       ghq.root = "~/development";
     };
   };
@@ -112,7 +112,7 @@ in
     enable = true;
     settings = {
       user.name = "rtoya";
-      user.email = "mshbmmsmsm.u.yauya.da.yo.n@gmail.com";
+      user.email = "4003442+rtoya@users.noreply.github.com";
       ui = {
         default-command = "log";
         pager = "less -FRX";
