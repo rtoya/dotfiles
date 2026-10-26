@@ -72,7 +72,9 @@ in
     kubeseal
     kustomize
     mise
-    nodejs
+    # nodejs(24.21.0) は eMudhra 中間CA を未失効のため、修正済みの 26 系を使う
+    # nixpkgs-unstable に nodejs_24 >= 24.22.1 が入ったら nodejs に戻す
+    nodejs_26
     pnpm
     postgresql
     peco
