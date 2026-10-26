@@ -122,6 +122,8 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    # Ctrl-R は atuin に任せる
+    historyWidget.command = "";
   };
 
   # zoxide (smarter cd)

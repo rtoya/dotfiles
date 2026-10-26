@@ -32,7 +32,11 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./home/home.nix;
+            home-manager.users.${username} = {
+              imports = [ ./home/home.nix ];
+              # nixvim も follows で揃えた nixpkgs を使うことを明示する
+              programs.nixvim.nixpkgs.source = nixpkgs;
+            };
             home-manager.extraSpecialArgs = {
               inherit username homeDirectory;
               nixvimModule = nixvim.homeModules.nixvim;
