@@ -108,21 +108,6 @@ in
     };
   };
 
-  programs.jujutsu = {
-    enable = true;
-    settings = {
-      user.name = "rtoya";
-      user.email = "4003442+rtoya@users.noreply.github.com";
-      ui = {
-        default-command = "log";
-        pager = "less -FRX";
-      };
-      aliases = {
-        l = ["log" "-r" "(main..@):: | (main..@)-"];
-      };
-    };
-  };
-
   # gh (GitHub CLI)
   programs.gh = {
     enable = true;
