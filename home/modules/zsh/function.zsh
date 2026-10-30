@@ -327,3 +327,24 @@ function gh() {
   fi
   command gh "$@"
 }
+
+# [gq] ghqリポジトリをzi風に選択 → cd (例: gq, gq dot) Ctrl-G でも起動 [ghq,fzf]
+function gq() {
+  local root selected
+  root=$(ghq root)
+  selected=$(
+    ghq list | fzf --query "$*" --exact --no-sort --cycle --keep-right --exit-0 \
+      --bind=ctrl-z:ignore,btab:up,tab:down \
+      --border=sharp --height=45% --info=inline --layout=reverse --tabstop=1 \
+      --preview "eza -1 --color=always --group-directories-first $root/{}" \
+      --preview-window=down,30%,sharp
+  )
+  [ -n "$selected" ] && cd "$root/$selected"
+}
+
+function _gq_widget() {
+  gq
+  zle reset-prompt
+}
+zle -N _gq_widget
+bindkey '^g' _gq_widget
