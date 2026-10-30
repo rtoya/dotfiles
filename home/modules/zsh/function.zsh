@@ -311,3 +311,19 @@ USAGE
     echo "password  : ${password:0:2}$(printf '%*s' $(( ${#password} - 2 )) '' | tr ' ' '*')  (copied to clipboard)"
   fi
 }
+
+# [gh] gh repo clone を ghq get に置き換える (オプション/ディレクトリ指定時は本家にフォールバック) [gh,ghq]
+function gh() {
+  if [ "$1" = "repo" ] && [ "$2" = "clone" ] && [ $# -eq 3 ] && [[ "$3" != -* ]]; then
+    local repo="${3#https://github.com/}"
+    repo="${repo#git@github.com:}"
+    repo="${repo%.git}"
+    # OWNER省略時は gh と同様にログインユーザーを補完
+    if [[ "$repo" != */* ]]; then
+      repo="$(command gh api user --jq .login)/$repo" || return 1
+    fi
+    ghq get "$repo" && echo "$(ghq list --full-path --exact "$repo")"
+    return
+  fi
+  command gh "$@"
+}
