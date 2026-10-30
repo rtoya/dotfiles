@@ -44,7 +44,7 @@ let
     '';
   };
   # ディレクトリ内のdefault.nixを自動インポート
-  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ./modules/gh-dash ];
+  toolDirs = [ ./modules/wezterm ./modules/mise ./modules/nixvim ./modules/zsh ./modules/krew ./modules/zeno ./modules/direnv ./modules/gh-dash ./modules/claude-code ];
 in
 
 {
