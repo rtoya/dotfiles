@@ -20,7 +20,7 @@ let
     version = "latest";
     src = pkgs.fetchurl {
       url = "https://coterm.datadoghq.com/mcp-cli/datadog_mcp_cli-macos-arm64";
-      sha256 = "sha256-7DtQTdJaQt7HFRaEpgbqIXlCS5DbiqHDSjfhL+1OoyE=";
+      sha256 = "sha256-LspK1fIHtNfs3HJM1T6qNhm53h732MW/WdAlSlqMRB8=";
     };
     dontUnpack = true;
     installPhase = ''
