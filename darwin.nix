@@ -6,6 +6,7 @@
     casks = [
       "blackhole-2ch"
       "keycastr"
+      "wezterm"
     ];
     onActivation = {
       cleanup = "none";
