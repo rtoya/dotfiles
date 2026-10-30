@@ -113,7 +113,7 @@ in
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
-    extensions = [ pkgs.gh-dash gh-aw ];
+    extensions = [ pkgs.gh-dash pkgs.gh-actions-lock gh-aw ];
   };
 
   # mise
